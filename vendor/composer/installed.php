@@ -3,7 +3,7 @@
         'name' => 'phpunit/trabajosubeivanperes',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ef4a15b7f3d2197d1fbb16c50847bb27f2b7e8a3',
+        'reference' => 'c51362bb2f000c56fe6283616475bfbc18f5b77a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -103,7 +103,7 @@
         'phpunit/trabajosubeivanperes' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ef4a15b7f3d2197d1fbb16c50847bb27f2b7e8a3',
+            'reference' => 'c51362bb2f000c56fe6283616475bfbc18f5b77a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
