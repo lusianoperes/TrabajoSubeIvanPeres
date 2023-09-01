@@ -85,11 +85,24 @@ class ColectivoTest extends TestCase{
             
         }
 
+        //Probar pasarse de saldo
+        $saldoPorPasarse = 5000;
+        $cargasValidasParaPasarse = [3000, 4000, 2000];
+        for ($i = 0; $i < count($cargasValidasParaPasarse); $i++)
+        {
+            
+            $tarjeta->saldo = $saldoPorPasarse;
+            ob_start(); 
+            $tarjeta->cargarTarjeta($cargasValidasParaPasarse[$i]);
+            $output = ob_get_clean(); 
 
+            $expectedOutput = "Carga Denegada. El límite de saldo de una tarjeta es de " . Tarjeta::LIMITESALDO;
 
+            $this->assertEquals($saldoPorPasarse, $tarjeta->saldo);
+            $this->assertEquals($output, $expectedOutput);
+            
+        }
 
-
-        
     }
 
 }
