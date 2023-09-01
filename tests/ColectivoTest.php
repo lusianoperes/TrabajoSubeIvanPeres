@@ -63,7 +63,7 @@ class ColectivoTest extends TestCase{
 
             $expectedOutput = "Has cargado $" . $saldosPosibles[$i] . " en tu tarjeta. Tu saldo ahora es de: $" . $tarjeta->saldo;
 
-            $this->assertEquals(($saldosPosibles[$i]) == $tarjeta->saldo);
+            $this->assertEquals(($saldosPosibles[$i]), $tarjeta->saldo);
             $this->assertEquals($output, $expectedOutput);
             
         }
@@ -80,7 +80,7 @@ class ColectivoTest extends TestCase{
 
             $expectedOutput = "La carga de $" . $cargasNoValidas[$i] . "es inválida. Los valores disponibles de carga son: " . $saldosPosibles;
 
-            $this->assertEquals(0 == $tarjeta->saldo);
+            $this->assertEquals(0, $tarjeta->saldo);
             $this->assertEquals($output, $expectedOutput);
             
         }
