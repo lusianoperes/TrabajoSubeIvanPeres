@@ -1,14 +1,25 @@
 <?php
 namespace TrabajoSube;
+
 class Colectivo{
-    protected $linea;
     
-    public function __construct($linea){
-        $this->linea = $linea;
+    public const TARIFABÁSICA = 120;
+
+    public function pagarCon(Tarjeta $tarjeta) {
+
+        if (($tarjeta->saldo - self::TARIFABÁSICA) >= 0) {
+
+            $tarjeta->saldo =  $tarjeta->saldo - self::TARIFABÁSICA;
+
+            $boleto = new Boleto(self::TARIFABÁSICA, $tarjeta->saldo);
+            return $boleto;
+        }
+        else {
+
+            echo "Saldo Insuficiente. Tienes $" . $tarjeta->saldo . " en tu tarjeta";
+
+        }
+
     }
-    
-    //    Funcion de ejemplo para test
-    public function getLinea(){
-        return $this->linea;
-    }
+
 }

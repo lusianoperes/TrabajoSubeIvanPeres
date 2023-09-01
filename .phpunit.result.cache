@@ -1,1 +1,1 @@
-{"version":1,"defects":{"TrabajoSube\\ColectivoTest::testGetlinea":8},"times":{"TrabajoSube\\ColectivoTest::testGetlinea":0.091}}
+{"version":1,"defects":{"TrabajoSube\\ColectivoTest::testGetlinea":8},"times":{"TrabajoSube\\ColectivoTest::testGetlinea":0.091,"TrabajoSube\\ColectivoTest::testPagarConTarjeta":0.01,"TrabajoSube\\ColectivoTest::testCargaTarjeta":0.416}}
