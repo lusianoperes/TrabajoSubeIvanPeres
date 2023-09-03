@@ -11,6 +11,11 @@ class Colectivo{
 
         if (($tarjeta->saldo - self::TARIFABÁSICA) >= $limiteSaldoNegativo) {
 
+            if ($tarjeta->saldo < self::TARIFABÁSICA) {
+
+                $tarjeta->deuda = self::TARIFABÁSICA - $tarjeta->saldo;
+            }
+
             $tarjeta->saldo =  $tarjeta->saldo - self::TARIFABÁSICA;
 
             $boleto = new Boleto(self::TARIFABÁSICA, $tarjeta->saldo);
