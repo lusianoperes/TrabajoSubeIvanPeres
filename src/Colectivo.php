@@ -9,7 +9,7 @@ class Colectivo{
 
     public function pagarCon(Tarjeta $tarjeta) {
 
-        if (($tarjeta->saldo - self::TARIFABÁSICA) >= $limiteSaldoNegativo) {
+        if (($tarjeta->saldo - self::TARIFABÁSICA) >= $this->limiteSaldoNegativo) {
 
             if ($tarjeta->saldo < self::TARIFABÁSICA) {
 

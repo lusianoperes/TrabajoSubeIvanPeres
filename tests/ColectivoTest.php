@@ -101,42 +101,29 @@ class ColectivoTest extends TestCase{
 
     }
 
-    public function testViajesPlus() {
+    public function testViajesPlus()
+{
+    $colectivo = new Colectivo();
+    $tarjeta = new Tarjeta();
 
-        $colectivo = new Colectivo();
-        $tarjeta = new Tarjeta();
+    $saldosMenoresATarifaBasica = [119, 30, 65, 15, 0];
 
-        $saldosMenoresATarifaBasica = [119, 30, 65, 15, 0]; 
+    for ($i = 0; $i < count($saldosMenoresATarifaBasica); $i++) {
+        $viajesPlus = 0;
+        $tarjeta->saldo = $saldosMenoresATarifaBasica[$i];
+        $boleto = true;
 
-        for($i = 0; $i < count($saldosMenoresATarifaBasica); $i++) {
+        while ($boleto != false) {
+            $boleto = $colectivo->pagarCon($tarjeta);
 
-            $viajesPlus = 0; 
-            $tarjeta->saldo = $saldosMenoresATarifaBasica[$i];
-            $boleto = true;
-
-            while($boleto != false) {
-
-                $boleto = $colectivo->pagarCon($tarjeta);
-
-                if($boleto != false)
-                {
-                    $viajesPlus++;
-                }
-
+            if ($boleto != false) {
+                $viajesPlus++;
             }
-
-            $this->assertLessThanOrEqual(2, $viajesPlus, "La variable \$viajesPlus no es menor o igual a 2");
-    }
-
-
         }
 
-
-    
-
-
-
-
+        $this->assertLessThanOrEqual(2, $viajesPlus, "La variable \$viajesPlus no es menor o igual a 2");
+    }
+}
 
     }
 
