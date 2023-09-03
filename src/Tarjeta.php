@@ -21,12 +21,17 @@ class Tarjeta{
 
             if(($this->saldo + $carga) <= self::LIMITESALDO) {
 
-                $this->saldo += $carga;
-
-                if($this->deuda != 0) {
-
-                    $this->saldo -= $this->deuda;
-                }
+                    if ($carga >= $this->deuda)
+                    {
+                
+                        $this->saldo = $carga - $this->deuda;
+                        $this->deuda = 0;
+                        
+                    }
+                    else
+                    {
+                        $this->deuda -= $carga;
+                    }
 
                 echo "Has cargado $" . $carga . " en tu tarjeta. Tu saldo ahora es de: $" . $this->saldo;
 

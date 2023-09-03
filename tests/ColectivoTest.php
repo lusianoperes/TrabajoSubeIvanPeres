@@ -125,5 +125,49 @@ class ColectivoTest extends TestCase{
     }
 }
 
+    public function testDescontarViajePlus()
+    {
+        $colectivo = new Colectivo();
+        $tarjeta = new Tarjeta();
+
+        $cargasPermitidas = Tarjeta::VALORESDECARGAPERMITIDOS;
+        $deudas = [211.84, 100, 3];
+    
+        for ($i = 0; $i < count($deudas); $i++)
+        {
+            $tarjeta->saldo = 0;
+            $tarjeta->deuda = $deudas[$i];
+
+            for ($j = 0; $j < count($cargasPermitidas); $j++)
+            {
+                
+                $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
+
+                if ($cargasPermitidas[$j] >= $deudas[$i]) {
+
+                    $this->assertEquals($tarjeta->saldo, $cargasPermitidas[$j] - $deudas[$i]);
+
+                }
+                else {
+
+                    $this->assertEquals($tarjeta->saldo, 0);
+                    $this->assertEquals($tarjeta->deuda,  $deudas[$i] - $cargasPermitidas[$j]);
+
+                }
+                
+                $tarjeta->saldo = 0;
+                $tarjeta->deuda = $deudas[$i];
+
+    
+            }
+            
+           
+
+
+
+        }
+
+    }
+
     }
 
