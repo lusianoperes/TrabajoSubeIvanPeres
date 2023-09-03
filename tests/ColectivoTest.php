@@ -18,26 +18,22 @@ class ColectivoTest extends TestCase{
         $tarjeta->saldo = $saldosPosibles[$i];
         $saldoPrePago = $tarjeta->saldo;
 
-        ob_start(); //Empieza la lectura del buffer
-        $boleto = $colectivo->pagarCon($tarjeta);
-        $output = ob_get_clean(); //Termina y almacena lo recibido en el buffer
+        $retorno = $colectivo->pagarCon($tarjeta);
 
         if ($saldoPrePago >= Colectivo::TARIFABÁSICA) {
 
-            $this->assertInstanceOf(Boleto::class, $boleto);
+            $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals(Colectivo::TARIFABÁSICA, $boleto->costoViaje);
+            $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->costoViaje);
 
-            $this->assertEquals($tarjeta->saldo, $boleto->saldoRestante);
+            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
 
             }
         else {
 
-            $this->assertNull($boleto);
+            $expectedOutput = false;
 
-            $expectedOutput = "Saldo Insuficiente. Tienes $" . $tarjeta->saldo . " en tu tarjeta";
-
-            $this->assertEquals($output, $expectedOutput);
+            $this->assertEquals($retorno, $expectedOutput);
 
             }
 
@@ -105,4 +101,73 @@ class ColectivoTest extends TestCase{
 
     }
 
+    public function testViajesPlus()
+{
+    $colectivo = new Colectivo();
+    $tarjeta = new Tarjeta();
+
+    $saldosMenoresATarifaBasica = [119, 30, 65, 15, 0];
+
+    for ($i = 0; $i < count($saldosMenoresATarifaBasica); $i++) {
+        $viajesPlus = 0;
+        $tarjeta->saldo = $saldosMenoresATarifaBasica[$i];
+        $boleto = true;
+
+        while ($boleto != false) {
+            $boleto = $colectivo->pagarCon($tarjeta);
+
+            if ($boleto != false) {
+                $viajesPlus++;
+            }
+        }
+
+        $this->assertLessThanOrEqual(2, $viajesPlus, "La variable \$viajesPlus no es menor o igual a 2");
+    }
 }
+
+    public function testDescontarViajePlus()
+    {
+        $colectivo = new Colectivo();
+        $tarjeta = new Tarjeta();
+
+        $cargasPermitidas = Tarjeta::VALORESDECARGAPERMITIDOS;
+        $deudas = [211.84, 100, 3];
+    
+        for ($i = 0; $i < count($deudas); $i++)
+        {
+            $tarjeta->saldo = 0;
+            $tarjeta->deuda = $deudas[$i];
+
+            for ($j = 0; $j < count($cargasPermitidas); $j++)
+            {
+                
+                $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
+
+                if ($cargasPermitidas[$j] >= $deudas[$i]) {
+
+                    $this->assertEquals($tarjeta->saldo, $cargasPermitidas[$j] - $deudas[$i]);
+
+                }
+                else {
+
+                    $this->assertEquals($tarjeta->saldo, 0);
+                    $this->assertEquals($tarjeta->deuda,  $deudas[$i] - $cargasPermitidas[$j]);
+
+                }
+                
+                $tarjeta->saldo = 0;
+                $tarjeta->deuda = $deudas[$i];
+
+    
+            }
+            
+           
+
+
+
+        }
+
+    }
+
+    }
+

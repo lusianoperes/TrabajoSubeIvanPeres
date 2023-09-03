@@ -5,9 +5,16 @@ class Colectivo{
     
     public const TARIFABÁSICA = 120;
 
+    public $limiteSaldoNegativo = Tarjeta::LIMITESALDONEGATIVO / 100;
+
     public function pagarCon(Tarjeta $tarjeta) {
 
-        if (($tarjeta->saldo - self::TARIFABÁSICA) >= 0) {
+        if (($tarjeta->saldo - self::TARIFABÁSICA) >= $this->limiteSaldoNegativo) {
+
+            if ($tarjeta->saldo < self::TARIFABÁSICA) {
+
+                $tarjeta->deuda = self::TARIFABÁSICA - $tarjeta->saldo;
+            }
 
             $tarjeta->saldo =  $tarjeta->saldo - self::TARIFABÁSICA;
 
@@ -16,7 +23,7 @@ class Colectivo{
         }
         else {
 
-            echo "Saldo Insuficiente. Tienes $" . $tarjeta->saldo . " en tu tarjeta";
+            return false;
 
         }
 
