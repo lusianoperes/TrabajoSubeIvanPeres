@@ -18,26 +18,22 @@ class ColectivoTest extends TestCase{
         $tarjeta->saldo = $saldosPosibles[$i];
         $saldoPrePago = $tarjeta->saldo;
 
-        ob_start(); //Empieza la lectura del buffer
-        $boleto = $colectivo->pagarCon($tarjeta);
-        $output = ob_get_clean(); //Termina y almacena lo recibido en el buffer
+        $retorno = $colectivo->pagarCon($tarjeta);
 
         if ($saldoPrePago >= Colectivo::TARIFABÁSICA) {
 
-            $this->assertInstanceOf(Boleto::class, $boleto);
+            $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals(Colectivo::TARIFABÁSICA, $boleto->costoViaje);
+            $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->costoViaje);
 
-            $this->assertEquals($tarjeta->saldo, $boleto->saldoRestante);
+            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
 
             }
         else {
 
-            $this->assertNull($boleto);
+            $expectedOutput = false;
 
-            $expectedOutput = "Saldo Insuficiente. Tienes $" . $tarjeta->saldo . " en tu tarjeta";
-
-            $this->assertEquals($output, $expectedOutput);
+            $this->assertEquals($retorno, $expectedOutput);
 
             }
 

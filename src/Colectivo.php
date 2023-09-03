@@ -16,7 +16,7 @@ class Colectivo{
         }
         else {
 
-            echo "Saldo Insuficiente. Tienes $" . $tarjeta->saldo . " en tu tarjeta";
+            return false;
 
         }
 
