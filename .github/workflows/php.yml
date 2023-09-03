@@ -2,9 +2,9 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ "main", "DescuentoDeSaldos" ]
+    branches: [ "main", "DescuentoDeSaldos", "ViajePlus" ]
   pull_request:
-    branches: [ "main", "DescuentoDeSaldos" ]
+    branches: [ "main", "DescuentoDeSaldos", "ViajePlus" ]
 
 permissions:
   contents: read
