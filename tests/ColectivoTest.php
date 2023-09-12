@@ -160,13 +160,21 @@ class ColectivoTest extends TestCase{
 
     
             }
-            
-           
-
-
 
         }
 
+    }
+
+    public function testPagarConFranquiciaCompleta()
+    {
+
+         
+    }
+
+    public function testPagarConMedioBoleto()
+    {
+
+         
     }
 
     }
