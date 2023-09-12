@@ -50,3 +50,15 @@ class Tarjeta{
         }
     }
 }
+
+class TarjetaEstudiantil extends Tarjeta{
+    
+}
+
+class TarjetaUniversitaria extends Tarjeta{
+    
+}
+
+class TarjetaJubilado extends Tarjeta{
+    
+}
