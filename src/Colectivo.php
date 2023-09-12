@@ -9,16 +9,26 @@ class Colectivo{
 
     public function pagarCon(Tarjeta $tarjeta) {
 
-        if (($tarjeta->saldo - self::TARIFABÁSICA) >= $this->limiteSaldoNegativo) {
+        if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
+            $monto = self::TARIFABÁSICA / 2; 
+        }
+        else if($tarjeta instanceof TarjetaJubilado) {
+            $monto = 0; 
+        }
+        else {
+            $monto = self::TARIFABÁSICA;
+        }
+        
+        if (($tarjeta->saldo - $monto) >= $this->limiteSaldoNegativo) {
 
-            if ($tarjeta->saldo < self::TARIFABÁSICA) {
+            if ($tarjeta->saldo < $monto) {
 
-                $tarjeta->deuda = self::TARIFABÁSICA - $tarjeta->saldo;
+                $tarjeta->deuda = $monto - $tarjeta->saldo;
             }
 
-            $tarjeta->saldo =  $tarjeta->saldo - self::TARIFABÁSICA;
+            $tarjeta->saldo =  $tarjeta->saldo - $monto;
 
-            $boleto = new Boleto(self::TARIFABÁSICA, $tarjeta->saldo);
+            $boleto = new Boleto($monto, $tarjeta->saldo);
             return $boleto;
         }
         else {
