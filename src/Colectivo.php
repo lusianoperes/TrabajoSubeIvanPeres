@@ -7,6 +7,14 @@ class Colectivo{
 
     public $limiteSaldoNegativo = Tarjeta::LIMITESALDONEGATIVO / 100;
 
+    public $lineaDeColectivo;
+
+    public function __construct($linea = 1) {
+
+        $this->lineaDeColectivo = $linea;
+
+    }
+
     public function pagarCon(Tarjeta $tarjeta) {
 
         if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
@@ -21,14 +29,25 @@ class Colectivo{
         
         if (($tarjeta->saldo - $monto) >= $this->limiteSaldoNegativo) {
 
-            if ($tarjeta->saldo < $monto) {
+            if($tarjeta->deuda != 0) {
 
-                $tarjeta->deuda = $monto - $tarjeta->saldo;
+                if($tarjeta->deuda < $tarjeta->saldo && $tarjeta->saldo - $tarjeta->deuda >= $monto) {
+
+                    $tarjeta->saldo -= $tarjeta->deuda;
+                    $deudaAux = $tarjeta->deuda;
+                    $tarjeta->deuda -= 0;
+                    $tarjeta->saldo =  $tarjeta->saldo - $monto;
+
+                    $boleto = new Boleto($monto, $tarjeta->saldo, date('Y-m-d'), $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo, "Has abonado la deuda de: " . $deudaAux);
+                    return $boleto;
+
+                }
+
             }
 
             $tarjeta->saldo =  $tarjeta->saldo - $monto;
 
-            $boleto = new Boleto($monto, $tarjeta->saldo);
+            $boleto = new Boleto($monto, $tarjeta->saldo, date('Y-m-d'), $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo);
             return $boleto;
         }
         else {

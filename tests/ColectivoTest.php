@@ -219,5 +219,14 @@ class ColectivoTest extends TestCase{
          
     }
 
+    public function testTiposDeBoletosSegunTarjeta()
+    {
+
+
+
+
+        
+    }
+
     }
 
