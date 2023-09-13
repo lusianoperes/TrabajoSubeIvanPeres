@@ -221,11 +221,58 @@ class ColectivoTest extends TestCase{
 
     public function testTiposDeBoletosSegunTarjeta()
     {
+        $colectivo = new Colectivo(5); 
+
+        $tarjetas = [new Tarjeta(69, 1200, 30), new TarjetaEstudiantil(3, 4000, 500), new TarjetaUniversitaria(1000, 100, 0), new TarjetaJubilado(999, 6000, 200)];
+
+        for($i = 0; $i < count($tarjetas); $i++)
+        {
+            $saldoPrePago = $tarjetas[$i]->saldo;
+            $retorno = $colectivo->pagarCon($tarjetas[$i]);
+            $fechaAux = date('Y-m-d');
+
+            $this->assertInstanceOf(Boleto::class, $retorno);
+            
+            $this->assertEquals($fechaAux, $retorno->obtenerFecha);
+
+            $this->assertEquals($tarjetas[$i]->ID, $retorno->obtenerID);
+
+            $this->assertEquals($tarjetas[$i]->tipoDeTarjeta, $retorno->obtenerTipoDeTarjeta);
+
+            $this->assertEquals($colectivo->linea, $retorno->obtenerLinea);
+            
+            if($tarjetas[$i]->tipoDeTarjeta == "Estudiantil" || $tarjetas[$i]->tipoDeTarjeta == "Universitaria")
+            {
+
+                $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->obtenerCostoViaje);
+                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $retorno->obtenerSaldoRestante);
+
+            }
+            else if ($tarjetas[$i]->tipoDeTarjeta == "Jubilado")
+            {
+
+                $this->assertEquals(0, $retorno->obtenerCostoViaje);
+                $this->assertEquals($saldoPrePago - 0, $retorno->obtenerSaldoRestante);
+            
+            }
+            else
+            {
+
+                $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->obtenerCostoViaje);
+                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $retorno->obtenerSaldoRestante);
+
+            }
+
+            
+
+            
 
 
 
 
-        
+
+        }
+
     }
 
     }

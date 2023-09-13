@@ -13,10 +13,10 @@ class Tarjeta{
     public $deuda;
     public $tipoDeTarjeta;
 
-    public function __construct($id = 1) {
+    public function __construct($id = 1, $sald = 0, $deu = 0) {
         $this->ID = $id;
-        $this->saldo = 0;
-        $this->deuda = 0;
+        $this->saldo = $sald;
+        $this->deuda = $deu;
         $this->tipoDeTarjeta = "Normal";
     }
 
