@@ -167,13 +167,55 @@ class ColectivoTest extends TestCase{
 
     public function testPagarConFranquiciaCompleta()
     {
+        $colectivo = new Colectivo();
+        $tarjeta = new TarjetaJubilado();
 
+        $saldosParaPagar = [-200.12, 0, 150, 4400, 6600];
+
+        for($i = 0; $i < count($saldosParaPagar); $i++)
+        {
+
+            $tarjeta->saldo = $saldosParaPagar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $retorno = $colectivo->pagarCon($tarjeta);
+
+            $this->assertInstanceOf(Boleto::class, $retorno);
+
+            $this->assertEquals(0, $retorno->costoViaje);
+
+            $this->assertEquals($tarjeta->saldo, $saldoPrePago);
+
+            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
+
+        }
          
     }
 
     public function testPagarConMedioBoleto()
     {
+        $colectivo = new Colectivo();
+        $tarjeta = new TarjetaEstudiantil();
 
+        $saldosParaPagar = [10, 0, 150, 4400, 6600];
+
+        for($i = 0; $i < count($saldosParaPagar); $i++)
+        {
+
+            $tarjeta->saldo = $saldosParaPagar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $retorno = $colectivo->pagarCon($tarjeta);
+
+            $this->assertInstanceOf(Boleto::class, $retorno);
+
+            $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->costoViaje);
+
+            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
+
+            $this->assertEquals($tarjeta->saldo - Colectivo::TARIFABÁSICA / 2, $saldoPrePago);
+
+        }
          
     }
 
