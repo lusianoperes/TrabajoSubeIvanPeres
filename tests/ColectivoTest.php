@@ -143,22 +143,28 @@ class ColectivoTest extends TestCase{
                 
                 $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
 
-                if ($cargasPermitidas[$j] >= $deudas[$i]) {
+                $deudaAux = $tarjeta->deuda;
+                $saldoPrePago = $tarjeta->saldo;
+                $retorno = $colectivo->pagarCon($tarjeta);
 
-                    $this->assertEquals($tarjeta->saldo, $cargasPermitidas[$j] - $deudas[$i]);
+                if($deudaAux < $saldoPrePago)
+                {
+
+                    $this->assertEquals($tarjeta->deuda,  0);
+                    $this->assertEquals($tarjeta->saldo,  $saldoPrePago - $deudaAux - $retorno->obtenerCostoViaje);
 
                 }
-                else {
+                else
+                {
 
-                    $this->assertEquals($tarjeta->saldo, 0);
-                    $this->assertEquals($tarjeta->deuda,  $deudas[$i] - $cargasPermitidas[$j]);
+                    $this->assertEquals(false, $retorno);
+                    $this->assertEquals($tarjeta->deuda,  $deudaAux - $tarjeta->saldo);
 
                 }
                 
                 $tarjeta->saldo = 0;
                 $tarjeta->deuda = $deudas[$i];
 
-    
             }
 
         }
