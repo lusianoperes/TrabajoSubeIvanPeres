@@ -11,11 +11,11 @@ class Boleto{
     public $lineaDeColectivo;
     public $mensaje;
 
-    public function __construct($costo, $saldo, $Fecha, $ID, $tipo, $linea, $sms = "") {
+    public function __construct($costo, $saldo, $fech, $ID, $tipo, $linea, $sms = "") {
         
         $this->costoViaje = $costo;
         $this->saldoRestante = $saldo;
-        $this->fecha = $Fecha;
+        $this->fecha = $fech;
         $this->tarjetaID = $ID;
         $this->tipoDeTarjeta = $tipo;
         $this->lineaDeColectivo = $linea;
