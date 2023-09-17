@@ -11,17 +11,19 @@ class Boleto{
     public $lineaDeColectivo;
     public $mensaje;
 
-    public function __construct($costo, $saldo, $fech=date('Y-m-d'), $ID, $tipo, $linea, $sms = "") {
-        
-        $this->costoViaje = $costo;
-        $this->saldoRestante = $saldo;
-        $this->fecha = $fech;
-        $this->tarjetaID = $ID;
-        $this->tipoDeTarjeta = $tipo;
-        $this->lineaDeColectivo = $linea;
-        $this->mensaje = $sms;
+   public function __construct($costo, $saldo, $fech = null, $ID, $tipo, $linea, $sms = "") {
+    if ($fech === null) {
+        $fech = date('Y-m-d');
     }
-
+    
+    $this->costoViaje = $costo;
+    $this->saldoRestante = $saldo;
+    $this->fecha = $fech;
+    $this->tarjetaID = $ID;
+    $this->tipoDeTarjeta = $tipo;
+    $this->lineaDeColectivo = $linea;
+    $this->mensaje = $sms;
+}
     public function obtenerFecha() {
 
         return $this->fecha;
