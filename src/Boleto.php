@@ -11,7 +11,7 @@ class Boleto{
     public $lineaDeColectivo;
     public $mensaje;
 
-    public function __construct($costo, $saldo, $fech, $ID, $tipo, $linea, $sms = "") {
+    public function __construct($costo, $saldo, $fech=date('Y-m-d'), $ID, $tipo, $linea, $sms = "") {
         
         $this->costoViaje = $costo;
         $this->saldoRestante = $saldo;
