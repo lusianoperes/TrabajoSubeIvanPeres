@@ -12,6 +12,7 @@ class Boleto{
     public $mensaje;
 
    public function __construct($costo, $saldo, $fech = null, $ID, $tipo, $linea, $sms = "") {
+    
     if ($fech === null) {
         $fech = date('Y-m-d');
     }

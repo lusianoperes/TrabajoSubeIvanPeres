@@ -37,7 +37,7 @@ class Colectivo{
                     $deudaAux = $tarjeta->deuda;
                     $tarjeta->deuda -= 0;
                     $tarjeta->saldo =  $tarjeta->saldo - $monto;
-                    $boleto = new Boleto($monto, $tarjeta->saldo, $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo, "Has abonado la deuda de: " . $deudaAux);
+                    $boleto = new Boleto($monto, $tarjeta->saldo, null, $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo, "Has abonado la deuda de: " . $deudaAux);
                     return $boleto;
 
                 }
@@ -45,7 +45,7 @@ class Colectivo{
             }
 
             $tarjeta->saldo =  $tarjeta->saldo - $monto;
-            $boleto = new Boleto($monto, $tarjeta->saldo, $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo);
+            $boleto = new Boleto($monto, $tarjeta->saldo, null ,$tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo);
             return $boleto;
         }
         else {
