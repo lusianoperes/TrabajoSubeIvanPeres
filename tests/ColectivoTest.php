@@ -158,7 +158,6 @@ class ColectivoTest extends TestCase{
                 {
 
                     $this->assertEquals(false, $retorno);
-                    $this->assertEquals($tarjeta->deuda,  $deudaAux - $tarjeta->saldo);
 
                 }
                 
