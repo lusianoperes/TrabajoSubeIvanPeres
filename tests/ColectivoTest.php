@@ -147,7 +147,7 @@ class ColectivoTest extends TestCase{
                 $saldoPrePago = $tarjeta->saldo;
                 $retorno = $colectivo->pagarCon($tarjeta);
 
-                if($deudaAux <= $saldoPrePago)
+                if($deudaAux <= $saldoPrePago && $saldoPrePago - $deudaAux >= $cargasPermitidas[$j])
                 {
 
                     $this->assertEquals($tarjeta->deuda,  0);
