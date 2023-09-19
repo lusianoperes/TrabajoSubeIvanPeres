@@ -41,6 +41,9 @@ class Colectivo{
                     return $boleto;
 
                 }
+                else{
+                    return false;
+                }
 
             }
 
