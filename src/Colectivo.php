@@ -33,7 +33,7 @@ class Colectivo{
 
                 if($tarjeta->deuda < $tarjeta->saldo && $tarjeta->saldo - $tarjeta->deuda >= $monto) {
 
-                    $tarjeta->saldo -= $tarjeta->deuda;
+                    $tarjeta->saldo = $tarjeta->saldo - $tarjeta->deuda;
                     $deudaAux = $tarjeta->deuda;
                     $tarjeta->deuda = 0;
                     $tarjeta->saldo =  $tarjeta->saldo - $monto;
