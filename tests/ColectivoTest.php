@@ -264,7 +264,7 @@ class ColectivoTest extends TestCase{
             {
 
                 $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->obtenerCostoViaje());
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $retorno->obtenerSaldoRestante());
+                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $retorno->obtenerSaldoRestante() - $tarjetas[$i]->deuda);
 
             }
 
