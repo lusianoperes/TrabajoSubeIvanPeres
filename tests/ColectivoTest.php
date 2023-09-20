@@ -272,5 +272,33 @@ class ColectivoTest extends TestCase{
 
     }
 
+    public function testCincoMinutos()
+    {
+       
+        $colectivo = new Colectivo();
+        $tarjeta = new TarjetaEstudiantil();
+
+        $saldosParaCargar = Tarjeta::VALORESDECARGAPERMITIDOS;
+         
+        for($i = 0; $i < count($saldosParaCargar); $i++)
+        {
+
+            $tarjeta->saldo = $saldosParaCargar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $retorno = $colectivo->pagarCon($tarjeta);
+
+            $this->assertInstanceOf(Boleto::class, $retorno);
+
+            $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->costoViaje);
+
+            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
+
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+
+        }  
+
+    }
+
     }
 

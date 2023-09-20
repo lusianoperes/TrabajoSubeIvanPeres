@@ -19,7 +19,11 @@ class Colectivo{
     public function pagarCon(Tarjeta $tarjeta) {
 
         if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
-            $monto = self::TARIFABÁSICA / 2; 
+            $monto = self::TARIFABÁSICA / 2;
+            if ($tarjeta->timer > 0)
+            {
+                return false;
+            }  
         }
         else if($tarjeta instanceof TarjetaJubilado) {
             $monto = 0; 
