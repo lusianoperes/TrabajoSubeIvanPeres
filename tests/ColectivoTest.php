@@ -146,18 +146,8 @@ class ColectivoTest extends TestCase{
                 $deudaAux = $tarjeta->deuda;
                 $saldoPrePago = $tarjeta->saldo;
                 $retorno = $colectivo->pagarCon($tarjeta);
-                
-                if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
-                    $monto = $colectivo::TARIFABÁSICA / 2; 
-                }
-                else if($tarjeta instanceof TarjetaJubilado) {
-                    $monto = 0; 
-                }
-                else {
-                    $monto = $colectivo::TARIFABÁSICA ;
-                }
 
-                if($deudaAux <= $saldoPrePago && $saldoPrePago - $deudaAux >= $cargasPermitidas[$j])
+                if($deudaAux <= $saldoPrePago && $saldoPrePago - $deudaAux >= Colectivo::TARIFABÁSICA)
                 {
 
                     $this->assertEquals($tarjeta->deuda,  0);
