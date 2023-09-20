@@ -250,21 +250,21 @@ class ColectivoTest extends TestCase{
             {
 
                 $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->obtenerCostoViaje());
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $retorno->obtenerSaldoRestante());
+                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
 
             }
             else if ($tarjetas[$i]->tipoDeTarjeta == "Jubilado")
             {
 
                 $this->assertEquals(0, $retorno->obtenerCostoViaje());
-                $this->assertEquals($saldoPrePago - 0, $retorno->obtenerSaldoRestante());
+                $this->assertEquals($saldoPrePago - 0 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
             
             }
             else
             {
 
                 $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->obtenerCostoViaje());
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $retorno->obtenerSaldoRestante() - $tarjetas[$i]->deuda);
+                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA - $tarjetas[$i]->deuda , $retorno->obtenerSaldoRestante());
 
             }
 
