@@ -13,6 +13,8 @@ class Tarjeta{
     public $deuda;
     public $tipoDeTarjeta;
     public $timer;
+    public $viajes;
+    public $ultimo;
 
     public function __construct($id = 1, $sald = 0, $deu = 0) {
         $this->ID = $id;
@@ -20,6 +22,7 @@ class Tarjeta{
         $this->deuda = $deu;
         $this->tipoDeTarjeta = "Normal";
         $this->timer = null;
+        $this->viajes = null;
     }
 
     public function cargarTarjeta($carga) {
@@ -54,6 +57,8 @@ class TarjetaEstudiantil extends Tarjeta{
         parent::__construct($id);
         $this->tipoDeTarjeta = "Estudiantil";
         $this->timer = 0;
+        $this->viajes = 0;
+        $this->ultimo = null;
     }
 }
 
@@ -63,6 +68,8 @@ class TarjetaUniversitaria extends Tarjeta{
         parent::__construct($id);
         $this->tipoDeTarjeta = "Universitaria";
         $this->timer = 0;
+        $this->viajes = 0;
+        $this->ultimo = null;
     }
 }
 
