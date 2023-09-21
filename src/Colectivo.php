@@ -73,7 +73,7 @@ class Colectivo{
                     $tarjeta->saldo =  $tarjeta->saldo - $monto;
                     if($tarjeta->saldo <= Tarjeta::LIMITESALDO && $tarjeta->exceso != 0)
                     {
-                        while ($tarjeta->exceso > 0 || $tarjeta->saldo < Tarjeta::LIMITESALDO)
+                        while ($tarjeta->exceso > 0 && $tarjeta->saldo < Tarjeta::LIMITESALDO)
                         {
                             $tarjeta->saldo++;
                             $tarjeta->exceso--;
@@ -101,7 +101,7 @@ class Colectivo{
             $tarjeta->saldo =  $tarjeta->saldo - $monto;
             if($tarjeta->saldo <= Tarjeta::LIMITESALDO && $tarjeta->exceso != 0)
             {
-                while ($tarjeta->exceso > 0 || $tarjeta->saldo < Tarjeta::LIMITESALDO)
+                while ($tarjeta->exceso > 0 && $tarjeta->saldo < Tarjeta::LIMITESALDO)
                     {
                         $tarjeta->saldo++;
                         $tarjeta->exceso--;
