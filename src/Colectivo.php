@@ -31,7 +31,7 @@ class Colectivo{
                 {
                     $tarjeta->viajes = 0;
                 }
-                if($tarjeta->viajes == 4)
+                if($tarjeta->viajes <= 4)
                 {
                     $monto = self::TARIFABÁSICA / 2;
                 }else{
