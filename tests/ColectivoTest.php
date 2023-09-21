@@ -410,17 +410,17 @@ class ColectivoTest extends TestCase{
                 
                 $saldoprecarga = $tarjeta->saldo;
                 $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
-
+                echo "hola es " . $tarjeta->saldo;
                 if(($tarjeta->saldo + $cargasPermitidas[$j]) > Tarjeta::LIMITESALDO)
                 {
-                    echo "es mayor y saldo es " . $tarjeta->saldo . "y carga es " . $cargasPermitidas[$j];
+                    echo " es mayor y saldo es " . $tarjeta->saldo . "y carga es " . $cargasPermitidas[$j];
                     $this->assertEquals($tarjeta->saldo,  6600);
                     $this->assertEquals($tarjeta->exceso,  $cargasPermitidas[$j] - (Tarjeta::LIMITESALDO - $tarjeta->saldo));
 
                 }
                 else
                 {
-
+                    echo " no es mayor y saldo es " . $tarjeta->saldo;
                     $this->assertEquals($tarjeta->saldo, $saldoprecarga + $cargasPermitidas[$j]);
 
                 }
