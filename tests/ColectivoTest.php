@@ -220,7 +220,7 @@ class ColectivoTest extends TestCase{
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
             $tarjetas[$j]->saldo = 120;
-            $saldoPrePago = $tarjetas[$j]->saldo
+            $saldoPrePago = $tarjetas[$j]->saldo;
 
             $tarjetas[$j]->viajes = 3;
             $viajesaux = $tarjetas[$j]->viajes;
@@ -234,7 +234,7 @@ class ColectivoTest extends TestCase{
 
             
             $tarjetas[$j]->saldo = 120;
-            $saldoPrePago = $tarjetas[$j]->saldo
+            $saldoPrePago = $tarjetas[$j]->saldo;
 
             $tarjetas[$j]->viajes = 4;
             $viajesaux = $tarjetas[$j]->viajes;
@@ -248,7 +248,7 @@ class ColectivoTest extends TestCase{
 
 
             $tarjetas[$j]->saldo = 120;
-            $saldoPrePago = $tarjetas[$j]->saldo
+            $saldoPrePago = $tarjetas[$j]->saldo;
 
             $tarjetas[$j]->viajes = 4;
             $viajesaux = $tarjetas[$j]->viajes;
