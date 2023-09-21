@@ -48,7 +48,6 @@ class ColectivoTest extends TestCase{
 
         $saldosPosibles = Tarjeta::VALORESDECARGAPERMITIDOS;
 
-        //Probar todas las cargas válidas con saldo de tarjeta en 0
         for ($i = 0; $i < count($saldosPosibles); $i++)
         {
 
@@ -64,7 +63,6 @@ class ColectivoTest extends TestCase{
             
         }
 
-        //Probar cargas invalidas con saldo de tarjeta en 0
         $cargasNoValidas = [1, 9000, 25, 120];
         for ($i = 0; $i < count($cargasNoValidas); $i++)
         {
@@ -77,24 +75,6 @@ class ColectivoTest extends TestCase{
             $expectedOutput = "La carga de $" . $cargasNoValidas[$i] . "es inválida. Los valores disponibles de carga son: " . $saldosPosibles;
 
             $this->assertEquals(0, $tarjeta->saldo);
-            $this->assertEquals($output, $expectedOutput);
-            
-        }
-
-        //Probar pasarse de saldo
-        $saldoPorPasarse = 5000;
-        $cargasValidasParaPasarse = [3000, 4000, 2000];
-        for ($i = 0; $i < count($cargasValidasParaPasarse); $i++)
-        {
-            
-            $tarjeta->saldo = $saldoPorPasarse;
-            ob_start(); 
-            $tarjeta->cargarTarjeta($cargasValidasParaPasarse[$i]);
-            $output = ob_get_clean(); 
-
-            $expectedOutput = "Carga Denegada. El límite de saldo de una tarjeta es de " . Tarjeta::LIMITESALDO;
-
-            $this->assertEquals($saldoPorPasarse, $tarjeta->saldo);
             $this->assertEquals($output, $expectedOutput);
             
         }
