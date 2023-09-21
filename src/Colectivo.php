@@ -101,7 +101,7 @@ class Colectivo{
             $tarjeta->saldo =  $tarjeta->saldo - $monto;
             if($tarjeta->saldo <= Tarjeta::LIMITESALDO && $tarjeta->exceso != 0)
             {
-                while ($tarjeta->exceso > 0 || $tarjeta->saldo == Tarjeta::LIMITESALDO)
+                while ($tarjeta->exceso > 0 || $tarjeta->saldo != Tarjeta::LIMITESALDO)
                 {
                     $tarjeta->saldo += 1;
                     $tarjeta->exceso -= 1;
