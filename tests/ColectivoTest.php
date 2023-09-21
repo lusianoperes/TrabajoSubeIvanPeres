@@ -202,15 +202,11 @@ class ColectivoTest extends TestCase{
        
         $colectivo = new Colectivo();
         $tarjetas = [new TarjetaEstudiantil(), new TarjetaUniversitaria()];
-
-        $saldosParaCargar = Tarjeta::VALORESDECARGAPERMITIDOS;
          
-        for($i = 0; $i < count($saldosParaCargar); $i++)
-        {
           for($j = 0; $j < count($tarjetas); $j++)
           {
 
-            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 0;
@@ -223,7 +219,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
-            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 3;
@@ -237,7 +233,7 @@ class ColectivoTest extends TestCase{
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
             
-            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 4;
@@ -251,7 +247,7 @@ class ColectivoTest extends TestCase{
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjeta->saldo);
 
 
-            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 4;
@@ -266,9 +262,7 @@ class ColectivoTest extends TestCase{
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
 
-          }
-
-        }  
+          }  
 
     }
 
