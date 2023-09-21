@@ -16,13 +16,13 @@ class Tarjeta{
     public $viajes;
     public $ultimo;
 
-    public function __construct($id = 1, $sald = 0, $deu = 0, $tim=null, $via=null) {
+    public function __construct($id = 1, $sald = 0, $deu = 0) {
         $this->ID = $id;
         $this->saldo = $sald;
         $this->deuda = $deu;
         $this->tipoDeTarjeta = "Normal";
-        $this->timer = $tim;
-        $this->viajes = $via;
+        $this->timer = null;
+        $this->viajes = null;
     }
 
     public function cargarTarjeta($carga) {

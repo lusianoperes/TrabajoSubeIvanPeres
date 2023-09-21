@@ -289,7 +289,7 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 0;
-            $retorno = $colectivo->pagarCon($tarjeta);
+            $retorno = $colectivo->pagarCon($tarjetas[$j]);
             
             $this->assertInstanceOf(Boleto::class, $retorno);
 
@@ -301,7 +301,7 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 3;
-            $retorno = $colectivo->pagarCon($tarjeta);
+            $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
@@ -314,7 +314,7 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 4;
-            $retorno = $colectivo->pagarCon($tarjeta);
+            $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertEquals(false, $retorno);
 
@@ -328,7 +328,7 @@ class ColectivoTest extends TestCase{
 
             $tarjetas[$j]->viajes = 4;
             $tarjetas[$j]->ultimo = strtotime(date("H:i")) - 86400;
-            $retorno = $colectivo->pagarCon($tarjeta);
+            $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
