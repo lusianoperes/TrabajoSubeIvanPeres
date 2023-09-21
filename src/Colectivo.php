@@ -27,7 +27,7 @@ class Colectivo{
             }
             else{
                  
-                if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == strtotime($horaactual))
+                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
@@ -97,7 +97,7 @@ class Colectivo{
             if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
                 $tarjeta->viajes += 1;
                 $tarjeta->timer = $horaactual;
-                $tarjeta->timer = $horaactual;
+                $tarjeta->ultimo = $horaactual;
             }else if ($tarjeta instanceof TarjetaEducativa){
 
                 $tarjeta->viajes += 1;
