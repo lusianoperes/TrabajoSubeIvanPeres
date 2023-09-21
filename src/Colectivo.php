@@ -23,7 +23,6 @@ class Colectivo{
             $horaactual = date("H:i");
             if(((strtotime($tarjeta->timer)) / 60) + 5 >= strtotime($horaactual)  && $tarjeta->timer != 0)
             {
-                echo "ENTRO";
                return false;
             }
             else{
