@@ -78,7 +78,6 @@ class TarjetaEducativa extends Tarjeta{
     public function __construct($id = 1) {
         parent::__construct($id);
         $this->tipoDeTarjeta = "BEG";
-        $this->timer = 0;
         $this->viajes = 0;
         $this->ultimo = null;
     }

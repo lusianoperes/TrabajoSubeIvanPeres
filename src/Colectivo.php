@@ -43,7 +43,21 @@ class Colectivo{
         else if($tarjeta instanceof TarjetaJubilado) {
             $monto = 0; 
         }
-        else {
+        else if($tarjeta instanceof TarjetaEducativa) {
+
+            if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == strtotime($horaactual))
+                {
+                    $tarjeta->viajes = 0;
+                }
+                if($tarjeta->viajes < 2)
+                {
+                    $monto = 0;
+                }else{
+                    $monto = self::TARIFABÁSICA;
+                }
+
+        }
+        else{
             $monto = self::TARIFABÁSICA;
         }
         
@@ -62,6 +76,11 @@ class Colectivo{
                         $tarjeta->viajes += 1;
                         $tarjeta->timer = $horaactual;
                         $tarjeta->ultimo = $horaactual;
+                    }else if ($tarjeta instanceof TarjetaEducativa){
+
+                        $tarjeta->viajes += 1;
+                        $tarjeta->ultimo = $horaactual;
+
                     }
                     return $boleto;
                 }
@@ -77,6 +96,11 @@ class Colectivo{
                 $tarjeta->viajes += 1;
                 $tarjeta->timer = $horaactual;
                 $tarjeta->timer = $horaactual;
+            }else if ($tarjeta instanceof TarjetaEducativa){
+
+                $tarjeta->viajes += 1;
+                $tarjeta->ultimo = $horaactual;
+
             }
             return $boleto;
         }
