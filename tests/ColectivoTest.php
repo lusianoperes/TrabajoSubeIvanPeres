@@ -236,7 +236,7 @@ class ColectivoTest extends TestCase{
             $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjetas[$j]->saldo;
 
-            $tarjetas[$j]->viajes = 4;
+            $tarjetas[$j]->viajes = 5;
             $viajesaux = $tarjetas[$j]->viajes;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
