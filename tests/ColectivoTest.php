@@ -272,29 +272,57 @@ class ColectivoTest extends TestCase{
 
     }
 
-    public function testCincoMinutos()
+    public function testCuatroViajes()
     {
        
         $colectivo = new Colectivo();
-        $tarjeta = new TarjetaEstudiantil();
+        $tarjetas = [new TarjetaEstudiantil(), new TarjetaUniversitaria()]
 
         $saldosParaCargar = Tarjeta::VALORESDECARGAPERMITIDOS;
          
         for($i = 0; $i < count($saldosParaCargar); $i++)
         {
+          for($j = 0; $j < count($tarjetas); j++)
+          {
 
-            $tarjeta->saldo = $saldosParaCargar[$i];
+            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
             $saldoPrePago = $tarjeta->saldo;
 
+            $tarjetas[$j]->viajes = 0;
+            $retorno = $colectivo->pagarCon($tarjeta);
+            
+            $this->assertInstanceOf(Boleto::class, $retorno);
+
+            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+
+            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $tarjetas[$j]->viajes = 3;
             $retorno = $colectivo->pagarCon($tarjeta);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->costoViaje);
-
-            $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
+            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+
+            
+            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $tarjetas[$j]->viajes = 4;
+            $retorno = $colectivo->pagarCon($tarjeta);
+
+            $this->assertEquals(false, $retorno);
+
+            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjeta->saldo);
+
+          }
 
         }  
 
