@@ -240,7 +240,7 @@ class ColectivoTest extends TestCase{
             $viajesaux = $tarjetas[$j]->viajes;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
-            $this->assertEquals(false, $retorno);
+            $this->assertEquals(Boleto::class, $retorno);
 
             $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
