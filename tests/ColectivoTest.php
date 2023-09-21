@@ -413,7 +413,7 @@ class ColectivoTest extends TestCase{
 
                 if(($tarjeta->saldo + $cargasPermitidas[$j]) >= Tarjeta::LIMITESALDO)
                 {
-
+                    echo "es mayor ";
                     $this->assertEquals($tarjeta->saldo,  6600);
                     $this->assertEquals($tarjeta->exceso,  $cargasPermitidas[$j] - (Tarjeta::LIMITESALDO - $tarjeta->saldo));
 
