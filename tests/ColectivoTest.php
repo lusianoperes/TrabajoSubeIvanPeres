@@ -214,11 +214,12 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 0;
+            $viajesaux = $tarjetas[$j]->viajes;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
             
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
@@ -226,11 +227,12 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 3;
+            $viajesaux = $tarjetas[$j]->viajes;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
@@ -239,11 +241,12 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 4;
+            $viajesaux = $tarjetas[$j]->viajes;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertEquals(false, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjeta->saldo);
 
@@ -252,12 +255,13 @@ class ColectivoTest extends TestCase{
             $saldoPrePago = $tarjeta->saldo;
 
             $tarjetas[$j]->viajes = 4;
+            $viajesaux = $tarjetas[$j]->viajes;
             $tarjetas[$j]->ultimo = strtotime(date("H:i")) - 86400;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
 
