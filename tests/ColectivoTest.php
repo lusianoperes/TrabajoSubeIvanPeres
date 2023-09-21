@@ -355,6 +355,7 @@ class ColectivoTest extends TestCase{
 
             $tarjetas[$j]->viajes = 0;
             $viajesaux = $tarjetas[$j]->viajes;
+            $tarjetas[$j]->ultimo = null;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
             
             $this->assertInstanceOf(Boleto::class, $retorno);
@@ -368,6 +369,7 @@ class ColectivoTest extends TestCase{
 
             $tarjetas[$j]->viajes = 1;
             $viajesaux = $tarjetas[$j]->viajes;
+            $tarjetas[$j]->ultimo = null;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
@@ -382,6 +384,7 @@ class ColectivoTest extends TestCase{
 
             $tarjetas[$j]->viajes = 2;
             $viajesaux = $tarjetas[$j]->viajes;
+            $tarjetas[$j]->ultimo = null;
             $retorno = $colectivo->pagarCon($tarjetas[$j]);
 
             $this->assertInstanceOf(Boleto::class, $retorno);
