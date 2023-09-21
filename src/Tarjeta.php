@@ -56,7 +56,7 @@ class TarjetaEstudiantil extends Tarjeta{
     public function __construct($id = 1) {
         parent::__construct($id);
         $this->tipoDeTarjeta = "Estudiantil";
-        $this->timer = date("H:i");
+        $this->timer = 0;
         $this->viajes = 0;
         $this->ultimo = null;
     }
@@ -67,7 +67,7 @@ class TarjetaUniversitaria extends Tarjeta{
     public function __construct($id = 1) {
         parent::__construct($id);
         $this->tipoDeTarjeta = "Universitaria";
-        $this->timer = date("H:i");
+        $this->timer = 0;
         $this->viajes = 0;
         $this->ultimo = null;
     }
