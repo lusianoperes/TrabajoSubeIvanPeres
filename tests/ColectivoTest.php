@@ -431,7 +431,7 @@ class ColectivoTest extends TestCase{
 
     }
 
-    public function testRecargarSaldoExceso
+    public function testRecargarSaldoExceso()
     {
         $colectivo = new Colectivo();
         $tarjeta = new Tarjeta();
