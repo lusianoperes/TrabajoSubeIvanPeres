@@ -27,7 +27,7 @@ class Colectivo{
             }
             else{
                  
-                if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == $horaactual)
+                if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
