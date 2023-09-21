@@ -282,7 +282,7 @@ class ColectivoTest extends TestCase{
          
         for($i = 0; $i < count($saldosParaCargar); $i++)
         {
-          for($j = 0; $j < count($tarjetas); j++)
+          for($j = 0; $j < count($tarjetas); $j++)
           {
 
             $tarjetas[$j]->saldo = $saldosParaCargar[$i];
