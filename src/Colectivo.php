@@ -44,9 +44,11 @@ class Colectivo{
             $monto = 0; 
         }
         else if($tarjeta instanceof TarjetaEducativa) {
-            $horaactual = date("H:i");
-            if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == strtotime($horaactual))
+                $horaactual = date("H:i");
+
+                if($tarjeta->ultimo != null && (strtotime($tarjeta->ultimo) + 86400) == strtotime($horaactual))
                 {
+                    echo "ENTROOO";
                     $tarjeta->viajes = 0;
                 }
                 if($tarjeta->viajes < 2)
@@ -56,7 +58,6 @@ class Colectivo{
                 }else{
                     $monto = self::TARIFABÁSICA;
                 }
-
         }
         else{
             $monto = self::TARIFABÁSICA;
