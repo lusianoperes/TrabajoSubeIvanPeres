@@ -217,7 +217,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
-            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
 
             $tarjetas[$j]->saldo = 120;
             $saldoPrePago = $tarjetas[$j]->saldo;
@@ -230,7 +230,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
-            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
 
             
             $tarjetas[$j]->saldo = 120;
@@ -244,7 +244,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
-            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjeta->saldo);
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjetas[$j]->saldo);
 
 
             $tarjetas[$j]->saldo = 120;
@@ -259,7 +259,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($tarjetas[$j]->viajes, $viajesaux);
 
-            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
 
 
           }  
