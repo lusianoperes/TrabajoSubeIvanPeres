@@ -322,6 +322,21 @@ class ColectivoTest extends TestCase{
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjeta->saldo);
 
+
+            $tarjetas[$j]->saldo = $saldosParaCargar[$i];
+            $saldoPrePago = $tarjeta->saldo;
+
+            $tarjetas[$j]->viajes = 4;
+            $tarjetas[$j]->ultimo = strtotime(date("H:i")) - 86400;
+            $retorno = $colectivo->pagarCon($tarjeta);
+
+            $this->assertInstanceOf(Boleto::class, $retorno);
+
+            $this->assertEquals($tarjetas[$j]->viajes, $tarjetas[$j]->viajes + 1);
+
+            $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+
+
           }
 
         }  
