@@ -276,7 +276,7 @@ class ColectivoTest extends TestCase{
     {
        
         $colectivo = new Colectivo();
-        $tarjetas = [new TarjetaEstudiantil(), new TarjetaUniversitaria()]
+        $tarjetas = [new TarjetaEstudiantil(), new TarjetaUniversitaria()];
 
         $saldosParaCargar = Tarjeta::VALORESDECARGAPERMITIDOS;
          
