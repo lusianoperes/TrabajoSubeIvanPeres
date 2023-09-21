@@ -45,10 +45,8 @@ class Colectivo{
         }
         else if($tarjeta instanceof TarjetaEducativa) {
                 $horaactual = date("H:i");
-                echo $horaactual . "horaactual y " . $tarjeta->ultimo . " ";
                 if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
                 {
-                    echo "ENTROOO";
                     $tarjeta->viajes = 0;
                 }
                 if($tarjeta->viajes < 2)

@@ -15,14 +15,16 @@ class Tarjeta{
     public $timer;
     public $viajes;
     public $ultimo;
+    public $exceso;
 
-    public function __construct($id = 1, $sald = 0, $deu = 0) {
+    public function __construct($id = 1, $sald = 0, $deu = 0, $exc = 0) {
         $this->ID = $id;
         $this->saldo = $sald;
         $this->deuda = $deu;
         $this->tipoDeTarjeta = "Normal";
         $this->timer = null;
         $this->viajes = null;
+        $this->exceso = $exc;
     }
 
     public function cargarTarjeta($carga) {
@@ -38,8 +40,9 @@ class Tarjeta{
             }
             else {
 
-                echo "Carga Denegada. El límite de saldo de una tarjeta es de " . self::LIMITESALDO;
-
+               $this->exceso = $carga - (self::LIMITESALDO - $this->saldo);
+               $this->saldo = 6600;
+               
             }
 
         }

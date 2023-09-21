@@ -413,5 +413,46 @@ class ColectivoTest extends TestCase{
 
     }
 
+    public function testExcesoDeSaldo()
+    {
+        $colectivo = new Colectivo();
+        $tarjeta = new Tarjeta();
+
+        $cargasPermitidas = Tarjeta::VALORESDECARGAPERMITIDOS;
+        $saldos = [6000, 4500, 6500, 6600];
+    
+        for ($i = 0; $i < count($saldos); $i++)
+        {
+            $tarjeta->saldo = $saldos[$i];
+
+            for ($j = 0; $j < count($cargasPermitidas); $j++)
+            {
+                
+                $saldoprecarga = $tarjeta->saldo;
+                $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
+
+                if(($tarjeta->saldo + $cargasPermitidas[$j]) >= Tarjeta::LIMITESALDO)
+                {
+
+                    $this->assertEquals($tarjeta->saldo,  6600);
+                    $this->assertEquals($tarjeta->exceso,  $cargasPermitidas[$j] - (Tarjeta::LIMITESALDO - $tarjeta->saldo));
+
+                }
+                else
+                {
+
+                    $this->assertEquals($tarjeta->saldo, $saldoprecarga + $cargasPermitidas[$j]);
+
+                }
+                
+                $tarjeta->saldo = $saldos[$i];
+                $tarjeta->exceso = 0;
+
+            }
+
+        }
+
+    }
+
     }
 
