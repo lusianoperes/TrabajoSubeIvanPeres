@@ -332,7 +332,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, 1);
 
             $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA , $tarjetas[$j]->saldo);
 
@@ -404,7 +404,7 @@ class ColectivoTest extends TestCase{
 
             $this->assertInstanceOf(Boleto::class, $retorno);
 
-            $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
+            $this->assertEquals($tarjetas[$j]->viajes, 1);
 
             $this->assertEquals($saldoPrePago, $tarjetas[$j]->saldo);
 
