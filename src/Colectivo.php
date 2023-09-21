@@ -71,6 +71,14 @@ class Colectivo{
                     $deudaAux = $tarjeta->deuda;
                     $tarjeta->deuda = 0;
                     $tarjeta->saldo =  $tarjeta->saldo - $monto;
+                    if($tarjeta->saldo <= Tarjeta::LIMITESALDO && $tarjeta->exceso != 0)
+                    {
+                        while ($tarjeta->exceso > 0 || $tarjeta->saldo == Tarjeta::LIMITESALDO)
+                        {
+                            $tarjeta->saldo += 1;
+                            $tarjeta->exceso -= 1;
+                        }
+                    }
                     $boleto = new Boleto($monto, $tarjeta->saldo, null, $tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo, "Has abonado la deuda de: " . $deudaAux);
                     if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
                         $tarjeta->viajes += 1;
@@ -91,6 +99,14 @@ class Colectivo{
             }
 
             $tarjeta->saldo =  $tarjeta->saldo - $monto;
+            if($tarjeta->saldo <= Tarjeta::LIMITESALDO && $tarjeta->exceso != 0)
+            {
+                while ($tarjeta->exceso > 0 || $tarjeta->saldo == Tarjeta::LIMITESALDO)
+                {
+                    $tarjeta->saldo += 1;
+                    $tarjeta->exceso -= 1;
+                }
+            }
             $boleto = new Boleto($monto, $tarjeta->saldo, null ,$tarjeta->ID, $tarjeta->tipoDeTarjeta, $this->lineaDeColectivo);
             if($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
                 $tarjeta->viajes += 1;

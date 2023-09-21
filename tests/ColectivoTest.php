@@ -410,17 +410,14 @@ class ColectivoTest extends TestCase{
                 
                 $saldoprecarga = $tarjeta->saldo;
                 $tarjeta->cargarTarjeta($cargasPermitidas[$j]);
-                echo "hola es " . $tarjeta->saldo;
                 if(($saldoprecarga + $cargasPermitidas[$j]) > Tarjeta::LIMITESALDO)
                 {
-                    echo " es mayor y saldo es " . $tarjeta->saldo . "y carga es " . $cargasPermitidas[$j];
                     $this->assertEquals($tarjeta->saldo,  6600);
                     $this->assertEquals($tarjeta->exceso,  $cargasPermitidas[$j] - (Tarjeta::LIMITESALDO - $saldoprecarga));
 
                 }
                 else
                 {
-                    echo " no es mayor y saldo es " . $tarjeta->saldo;
                     $this->assertEquals($tarjeta->saldo, $saldoprecarga + $cargasPermitidas[$j]);
 
                 }
@@ -431,6 +428,43 @@ class ColectivoTest extends TestCase{
             }
 
         }
+
+    }
+
+    public function testRecargarSaldoExceso
+    {
+        $colectivo = new Colectivo();
+        $tarjeta = new Tarjeta();
+    
+            $tarjeta->saldo = 6600;
+            $tarjeta->exceso = 0;
+            $excesoprepago = $tarjeta->exceso;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+            $this->assertEquals($tarjeta->exceso, 0);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->exceso = 300;
+            $excesoprepago = $tarjeta->exceso;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+
+            $this->assertEquals($tarjeta->saldo, $saldoprepago);
+            $this->assertEquals($tarjeta->exceso, $excesoprepago - Colectivo::TARIFABÁSICA);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->exceso = 100;
+            $excesoprepago = $tarjeta->exceso;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - (Colectivo::TARIFABÁSICA - $excesoprepago));
+            $this->assertEquals($tarjeta->exceso, 0);
 
     }
 
