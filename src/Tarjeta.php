@@ -17,8 +17,9 @@ class Tarjeta{
     public $ultimo;
     public $exceso;
     public $viajespormes;
+    public $dias;
 
-    public function __construct($id = 1, $sald = 0, $deu = 0, $exc = 0, $via = 0) {
+    public function __construct($id = 1, $sald = 0, $deu = 0, $exc = 0, $via = 1, $dias = 1) {
         $this->ID = $id;
         $this->saldo = $sald;
         $this->deuda = $deu;
@@ -27,6 +28,7 @@ class Tarjeta{
         $this->viajes = null;
         $this->exceso = $exc;
         $this->viajespormes = $via;
+        $this->dias = $dias;
     }
 
     public function cargarTarjeta($carga) {
