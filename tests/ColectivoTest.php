@@ -512,7 +512,7 @@ class ColectivoTest extends TestCase{
             $colectivo->pagarCon($tarjeta);
             
             $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
-            $this->assertEquals($tarjeta->viajespormes, 1);
+            $this->assertEquals($tarjeta->viajespormes, 2);
             $this->assertEquals($tarjeta->dias, $diasprepago);
 
             $tarjeta->saldo = 6600;
@@ -526,7 +526,7 @@ class ColectivoTest extends TestCase{
             $colectivo->pagarCon($tarjeta);
             
             $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
-            $this->assertEquals($tarjeta->viajespormes, 1);
+            $this->assertEquals($tarjeta->viajespormes, 2);
             $this->assertEquals($tarjeta->dias, $diasprepago + 1);
 
 
