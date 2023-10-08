@@ -26,6 +26,7 @@ class Tarjeta{
         $this->tipoDeTarjeta = "Normal";
         $this->timer = null;
         $this->viajes = null;
+        $this->ultimo = null;
         $this->exceso = $exc;
         $this->viajespormes = $via;
         $this->dias = $dias;
@@ -65,7 +66,6 @@ class TarjetaEstudiantil extends Tarjeta{
         $this->tipoDeTarjeta = "Estudiantil";
         $this->timer = 0;
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 
@@ -76,7 +76,6 @@ class TarjetaUniversitaria extends Tarjeta{
         $this->tipoDeTarjeta = "Universitaria";
         $this->timer = 0;
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 
@@ -86,7 +85,6 @@ class TarjetaEducativa extends Tarjeta{
         parent::__construct($id);
         $this->tipoDeTarjeta = "BEG";
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 

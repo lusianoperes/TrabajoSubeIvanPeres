@@ -27,7 +27,7 @@ class Colectivo{
             }
             else{
                  
-                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
+                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
@@ -45,7 +45,7 @@ class Colectivo{
         }
         else if($tarjeta instanceof TarjetaEducativa) {
                 $horaactual = date("H:i");
-                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
+                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
@@ -58,6 +58,11 @@ class Colectivo{
                 }
         }
         else{
+            $horaactual = date("H:i");
+            if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
+            {
+                $tarjeta->dias += 1;
+            }
             if($tarjeta->dias >= 1 && $tarjeta->dias <= 30)
             {
               
@@ -114,6 +119,7 @@ class Colectivo{
 
                     }else{
                         $tarjeta->viajespormes += 1;
+                        $tarjeta->ultimo = $horaactual;
                     }
                     return $boleto;
                 }
@@ -144,6 +150,7 @@ class Colectivo{
 
             }else{
                 $tarjeta->viajespormes += 1;
+                $tarjeta->ultimo = $horaactual;
             }
             return $boleto;
         }
