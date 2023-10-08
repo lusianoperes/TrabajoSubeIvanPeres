@@ -13,7 +13,6 @@ class Colectivo
 
     public function __construct($linea = 1)
     {
-
         $this->lineaDeColectivo = $linea;
     }
 
@@ -162,4 +161,11 @@ class Colectivo
             return false;
         }
     }
+
+}
+
+class ColectivoInterUrbano extends Colectivo{
+
+    public const TARIFABÁSICA = 1;
+
 }

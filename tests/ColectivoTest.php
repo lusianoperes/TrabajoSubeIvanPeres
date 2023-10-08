@@ -672,4 +672,20 @@ class ColectivoTest extends TestCase
             $this->assertEquals($retorno, false);
         }
     }
+
+    public function testInterurbano()
+    {
+
+      $colectivo = new ColectivoInterUrbano();
+      $tarjeta = new Tarjeta();
+
+      $tarjeta->saldo = 6000;
+      $saldoprepago = $tarjeta->saldo;
+      $retorno = $colectivo->pagarCon($tarjeta);
+
+      $this->assertEquals($tarjeta->saldo, $saldoprepago - 184);
+      $this->assertInstanceOf(Boleto::class, $retorno);
+
+    }
+    
 }
