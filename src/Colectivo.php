@@ -166,6 +166,6 @@ class Colectivo
 
 class ColectivoInterUrbano extends Colectivo{
 
-    public const TARIFABÁSICA = 1;
+    public const TARIFABÁSICA = 184;
 
 }
