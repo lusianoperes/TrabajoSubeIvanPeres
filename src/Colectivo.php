@@ -168,4 +168,13 @@ class ColectivoInterUrbano extends Colectivo{
 
     public const TARIFABÁSICA = 184;
 
+    public function pagarCon(Tarjeta $tarjeta)
+   {
+
+      $this->lineaDeColectivo = $this->lineaDeColectivo; 
+
+      return parent::pagarCon($tarjeta); 
+      
+   }
+
 }
