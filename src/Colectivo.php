@@ -4,7 +4,7 @@ namespace TrabajoSube;
 
 class Colectivo
 {
-    
+
     public $TARIFABÁSICA;
 
     public $limiteSaldoNegativo = Tarjeta::LIMITESALDONEGATIVO / 100;
@@ -33,9 +33,7 @@ class Colectivo
             if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
                 if (((strtotime($tarjeta->timer)) / 60) + 5 >= strtotime($horaactual)  && $tarjeta->timer != 0) {
                     return false;
-                } 
-                else 
-                {
+                } else {
 
                     if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
                         $tarjeta->viajes = 0;
@@ -46,19 +44,16 @@ class Colectivo
                         $monto = $this->TARIFABÁSICA;
                     }
                 }
-            } 
-            else 
-            {
+            } else {
                 return false;
             }
         } else if ($tarjeta instanceof TarjetaJubilado) {
 
             if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
                 $monto = 0;
-            }else{
+            } else {
                 return false;
             }
-            
         } else if ($tarjeta instanceof TarjetaEducativa) {
 
             if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
@@ -70,10 +65,9 @@ class Colectivo
                 } else {
                     $monto = $this->TARIFABÁSICA;
                 }
-            }else{
+            } else {
                 return false;
             }
-            
         } else {
 
             if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
@@ -162,14 +156,14 @@ class Colectivo
             return false;
         }
     }
-
 }
 
-class ColectivoInterUrbano extends Colectivo{
+class ColectivoInterUrbano extends Colectivo
+{
 
-    public function __construct($linea = 1) {
+    public function __construct($linea = 1)
+    {
         parent::__construct($linea);
         $this->TARIFABÁSICA = 184;
     }
-
 }

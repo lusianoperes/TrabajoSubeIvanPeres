@@ -1,7 +1,9 @@
 <?php
+
 namespace TrabajoSube;
 
-class Boleto{
+class Boleto
+{
 
     public $fecha;
     public $costoViaje;
@@ -11,41 +13,48 @@ class Boleto{
     public $lineaDeColectivo;
     public $mensaje;
 
-   public function __construct($costo, $saldo, $fech = null, $ID, $tipo, $linea, $sms = "") {
-    
-    if ($fech === null) {
-        $fech = date('Y-m-d');
+    public function __construct($costo, $saldo, $fech = null, $ID, $tipo, $linea, $sms = "")
+    {
+
+        if ($fech === null) {
+            $fech = date('Y-m-d');
+        }
+
+        $this->costoViaje = $costo;
+        $this->saldoRestante = $saldo;
+        $this->fecha = $fech;
+        $this->tarjetaID = $ID;
+        $this->tipoDeTarjeta = $tipo;
+        $this->lineaDeColectivo = $linea;
+        $this->mensaje = $sms;
     }
-    
-    $this->costoViaje = $costo;
-    $this->saldoRestante = $saldo;
-    $this->fecha = $fech;
-    $this->tarjetaID = $ID;
-    $this->tipoDeTarjeta = $tipo;
-    $this->lineaDeColectivo = $linea;
-    $this->mensaje = $sms;
-}
-    public function obtenerFecha() {
+    public function obtenerFecha()
+    {
 
         return $this->fecha;
     }
-    public function obtenerCostoViaje() {
+    public function obtenerCostoViaje()
+    {
 
         return $this->costoViaje;
     }
-    public function obtenerSaldoRestante() {
+    public function obtenerSaldoRestante()
+    {
 
         return $this->saldoRestante;
     }
-    public function obtenerID() {
+    public function obtenerID()
+    {
 
         return $this->tarjetaID;
     }
-    public function obtenerTipoDeTarjeta() {
+    public function obtenerTipoDeTarjeta()
+    {
 
         return $this->tipoDeTarjeta;
     }
-    public function obtenerLinea() {
+    public function obtenerLinea()
+    {
 
         return $this->lineaDeColectivo;
     }
