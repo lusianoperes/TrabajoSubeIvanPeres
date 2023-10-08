@@ -16,15 +16,20 @@ class Tarjeta{
     public $viajes;
     public $ultimo;
     public $exceso;
+    public $viajespormes;
+    public $dias;
 
-    public function __construct($id = 1, $sald = 0, $deu = 0, $exc = 0) {
+    public function __construct($id = 1, $sald = 0, $deu = 0, $exc = 0, $via = 1, $dias = 1) {
         $this->ID = $id;
         $this->saldo = $sald;
         $this->deuda = $deu;
         $this->tipoDeTarjeta = "Normal";
         $this->timer = null;
         $this->viajes = null;
+        $this->ultimo = null;
         $this->exceso = $exc;
+        $this->viajespormes = $via;
+        $this->dias = $dias;
     }
 
     public function cargarTarjeta($carga) {
@@ -61,7 +66,6 @@ class TarjetaEstudiantil extends Tarjeta{
         $this->tipoDeTarjeta = "Estudiantil";
         $this->timer = 0;
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 
@@ -72,7 +76,6 @@ class TarjetaUniversitaria extends Tarjeta{
         $this->tipoDeTarjeta = "Universitaria";
         $this->timer = 0;
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 
@@ -82,7 +85,6 @@ class TarjetaEducativa extends Tarjeta{
         parent::__construct($id);
         $this->tipoDeTarjeta = "BEG";
         $this->viajes = 0;
-        $this->ultimo = null;
     }
 }
 

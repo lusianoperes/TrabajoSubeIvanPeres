@@ -467,6 +467,82 @@ class ColectivoTest extends TestCase{
             $this->assertEquals($tarjeta->exceso, 0);
 
     }
+    
+    public function testBoletoUsoFrecuente()
+    {
+        $colectivo = new Colectivo();
+        $tarjeta = new Tarjeta();
+    
+            $tarjeta->saldo = 6600;
+            $tarjeta->dias = 20;
+            $tarjeta->ultimo = strtotime(date("H:i")) - 86000;
+            $tarjeta->viajespormes = 28;
+            $viajesprepago = $tarjeta->viajespormes;
+            $diasprepago = $tarjeta->dias;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+            $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
+            $this->assertEquals($tarjeta->dias, $diasprepago + 1);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->dias = 10;
+            $tarjeta->ultimo = strtotime(date("H:i")) - 86400;
+            $tarjeta->viajespormes = 50;
+            $viajesprepago = $tarjeta->viajespormes;
+            $diasprepago = $tarjeta->dias;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA * 0.80);
+            $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
+            $this->assertEquals($tarjeta->dias, $diasprepago + 1);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->dias = 34;
+            $tarjeta->ultimo = strtotime(date("H:i")) - 86800;
+            $tarjeta->viajespormes = 82;
+            $viajesprepago = $tarjeta->viajespormes;
+            $diasprepago = $tarjeta->dias;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+            $this->assertEquals($tarjeta->viajespormes, 2);
+            $this->assertEquals($tarjeta->dias, $diasprepago);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->dias = 30;
+            $tarjeta->ultimo = strtotime(date("H:i")) - 86000;
+            $tarjeta->viajespormes = 82;
+            $viajesprepago = $tarjeta->viajespormes;
+            $diasprepago = $tarjeta->dias;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+            $this->assertEquals($tarjeta->viajespormes, 2);
+            $this->assertEquals($tarjeta->dias, $diasprepago + 1);
+
+            $tarjeta->saldo = 6600;
+            $tarjeta->dias = 20;
+            $tarjeta->ultimo = strtotime(date("H:i")) - 86800;
+            $tarjeta->viajespormes = 82;
+            $viajesprepago = $tarjeta->viajespormes;
+            $diasprepago = $tarjeta->dias;
+            $saldoprepago = $tarjeta->saldo;
+          
+            $colectivo->pagarCon($tarjeta);
+            
+            $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA * 0.75);
+            $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
+            $this->assertEquals($tarjeta->dias, $diasprepago);
+
 
     }
-
+    }

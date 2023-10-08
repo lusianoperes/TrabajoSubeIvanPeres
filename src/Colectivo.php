@@ -27,7 +27,7 @@ class Colectivo{
             }
             else{
                  
-                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
+                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
@@ -45,7 +45,7 @@ class Colectivo{
         }
         else if($tarjeta instanceof TarjetaEducativa) {
                 $horaactual = date("H:i");
-                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) == strtotime($horaactual))
+                if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
                 {
                     $tarjeta->viajes = 0;
                 }
@@ -58,7 +58,35 @@ class Colectivo{
                 }
         }
         else{
-            $monto = self::TARIFABÁSICA;
+            $horaactual = date("H:i");
+            if($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual))
+            {
+                $tarjeta->dias += 1;
+            }
+            if($tarjeta->dias >= 1 && $tarjeta->dias <= 30)
+            {
+              
+              $tarjeta->viajespormes = $tarjeta->viajespormes;  
+
+            }else{
+           
+              $tarjeta->viajespormes = 1;
+
+            }
+
+            switch ($tarjeta->viajespormes){
+
+                case ($tarjeta->viajespormes >= 1 && $tarjeta->viajespormes <= 29):
+                    $monto = self::TARIFABÁSICA;
+                    break;
+                case ($tarjeta->viajespormes >= 30 && $tarjeta->viajespormes <= 79):
+                    $monto = self::TARIFABÁSICA * 0.80;
+                    break;
+                default:
+                    $monto = self::TARIFABÁSICA * 0.75;
+                    break;
+                           
+        }
         }
         
         if (($tarjeta->saldo - $monto) >= $this->limiteSaldoNegativo) {
@@ -89,6 +117,9 @@ class Colectivo{
                         $tarjeta->viajes += 1;
                         $tarjeta->ultimo = $horaactual;
 
+                    }else{
+                        $tarjeta->viajespormes += 1;
+                        $tarjeta->ultimo = $horaactual;
                     }
                     return $boleto;
                 }
@@ -117,6 +148,9 @@ class Colectivo{
                 $tarjeta->viajes += 1;
                 $tarjeta->ultimo = $horaactual;
 
+            }else{
+                $tarjeta->viajespormes += 1;
+                $tarjeta->ultimo = $horaactual;
             }
             return $boleto;
         }
