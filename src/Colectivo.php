@@ -27,39 +27,53 @@ class Colectivo
         $diaInicio = 1;
         $diaFin = 5;
 
-        if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
-            echo "La hora actual está dentro del rango definido.";
-        } else {
-            echo "La hora actual está fuera del rango definido.";
-        }
 
         if ($tarjeta instanceof TarjetaEstudiantil || $tarjeta instanceof TarjetaUniversitaria) {
 
-            if (((strtotime($tarjeta->timer)) / 60) + 5 >= strtotime($horaactual)  && $tarjeta->timer != 0) {
-                return false;
-            } else {
+            if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
+                if (((strtotime($tarjeta->timer)) / 60) + 5 >= strtotime($horaactual)  && $tarjeta->timer != 0) {
+                    return false;
+                } 
+                else 
+                {
 
+                    if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
+                        $tarjeta->viajes = 0;
+                    }
+                    if ($tarjeta->viajes <= 4) {
+                        $monto = self::TARIFABÁSICA / 2;
+                    } else {
+                        $monto = self::TARIFABÁSICA;
+                    }
+                }
+            } 
+            else 
+            {
+                return false;
+            }
+        } else if ($tarjeta instanceof TarjetaJubilado) {
+
+            if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
+                $monto = 0;
+            }else{
+                return false;
+            }
+            
+        } else if ($tarjeta instanceof TarjetaEducativa) {
+
+            if ($horaactual >= $horaInicio && $horaactual <= $horaFin && $diaActual >= $diaInicio && $diaActual <= $diaFin) {
                 if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
                     $tarjeta->viajes = 0;
                 }
-                if ($tarjeta->viajes <= 4) {
-                    $monto = self::TARIFABÁSICA / 2;
+                if ($tarjeta->viajes < 2) {
+                    $monto = 0;
                 } else {
                     $monto = self::TARIFABÁSICA;
                 }
+            }else{
+                return false;
             }
-        } else if ($tarjeta instanceof TarjetaJubilado) {
-            $monto = 0;
-        } else if ($tarjeta instanceof TarjetaEducativa) {
-
-            if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
-                $tarjeta->viajes = 0;
-            }
-            if ($tarjeta->viajes < 2) {
-                $monto = 0;
-            } else {
-                $monto = self::TARIFABÁSICA;
-            }
+            
         } else {
 
             if ($tarjeta->ultimo != null && ($tarjeta->ultimo + 86400) >= strtotime($horaactual)) {
