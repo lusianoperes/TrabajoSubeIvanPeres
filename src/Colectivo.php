@@ -4,8 +4,8 @@ namespace TrabajoSube;
 
 class Colectivo
 {
-
-    public const TARIFABÁSICA = 120;
+    
+    public $TARIFABÁSICA;
 
     public $limiteSaldoNegativo = Tarjeta::LIMITESALDONEGATIVO / 100;
 
@@ -14,6 +14,7 @@ class Colectivo
     public function __construct($linea = 1)
     {
         $this->lineaDeColectivo = $linea;
+        $this->TARIFABÁSICA = 120;
     }
 
     public function pagarCon(Tarjeta $tarjeta)
@@ -40,9 +41,9 @@ class Colectivo
                         $tarjeta->viajes = 0;
                     }
                     if ($tarjeta->viajes <= 4) {
-                        $monto = self::TARIFABÁSICA / 2;
+                        $monto = $this->TARIFABÁSICA / 2;
                     } else {
-                        $monto = self::TARIFABÁSICA;
+                        $monto = $this->TARIFABÁSICA;
                     }
                 }
             } 
@@ -67,7 +68,7 @@ class Colectivo
                 if ($tarjeta->viajes < 2) {
                     $monto = 0;
                 } else {
-                    $monto = self::TARIFABÁSICA;
+                    $monto = $this->TARIFABÁSICA;
                 }
             }else{
                 return false;
@@ -89,13 +90,13 @@ class Colectivo
             switch ($tarjeta->viajespormes) {
 
                 case ($tarjeta->viajespormes >= 1 && $tarjeta->viajespormes <= 29):
-                    $monto = self::TARIFABÁSICA;
+                    $monto = $this->TARIFABÁSICA;
                     break;
                 case ($tarjeta->viajespormes >= 30 && $tarjeta->viajespormes <= 79):
-                    $monto = self::TARIFABÁSICA * 0.80;
+                    $monto = $this->TARIFABÁSICA * 0.80;
                     break;
                 default:
-                    $monto = self::TARIFABÁSICA * 0.75;
+                    $monto = $this->TARIFABÁSICA * 0.75;
                     break;
             }
         }
@@ -166,15 +167,9 @@ class Colectivo
 
 class ColectivoInterUrbano extends Colectivo{
 
-    public const TARIFABÁSICA = 184;
-
-    public function pagarCon(Tarjeta $tarjeta)
-   {
-
-      $this->lineaDeColectivo = $this->lineaDeColectivo; 
-
-      return parent::pagarCon($tarjeta); 
-      
-   }
+    public function __construct($linea = 1) {
+        parent::__construct($linea);
+        $this->TARIFABÁSICA = 184;
+    }
 
 }

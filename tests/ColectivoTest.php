@@ -22,11 +22,11 @@ class ColectivoTest extends TestCase
 
             $retorno = $colectivo->pagarCon($tarjeta);
 
-            if ($saldoPrePago >= Colectivo::TARIFABÁSICA) {
+            if ($saldoPrePago >= $colectivo->TARIFABÁSICA) {
 
                 $this->assertInstanceOf(Boleto::class, $retorno);
 
-                $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->costoViaje);
+                $this->assertEquals($colectivo->TARIFABÁSICA, $retorno->costoViaje);
 
                 $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
             } else {
@@ -118,7 +118,7 @@ class ColectivoTest extends TestCase
                 $saldoPrePago = $tarjeta->saldo;
                 $retorno = $colectivo->pagarCon($tarjeta);
 
-                if ($deudaAux <= $saldoPrePago && ($saldoPrePago - $deudaAux) >= Colectivo::TARIFABÁSICA) {
+                if ($deudaAux <= $saldoPrePago && ($saldoPrePago - $deudaAux) >= $colectivo->TARIFABÁSICA) {
 
                     $this->assertEquals($tarjeta->deuda,  0);
                     $this->assertEquals($tarjeta->saldo,  $saldoPrePago - $deudaAux - $retorno->obtenerCostoViaje());
@@ -195,11 +195,11 @@ class ColectivoTest extends TestCase
 
                 $this->assertInstanceOf(Boleto::class, $retorno);
 
-                $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->costoViaje);
+                $this->assertEquals($colectivo->TARIFABÁSICA / 2, $retorno->costoViaje);
 
                 $this->assertEquals($tarjeta->saldo, $retorno->saldoRestante);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjeta->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2, $tarjeta->saldo);
             } else {
                 $this->assertEquals($tarjeta->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -243,16 +243,16 @@ class ColectivoTest extends TestCase
 
                     if ($tarjetas[$i]->tipoDeTarjeta == "Estudiantil" || $tarjetas[$i]->tipoDeTarjeta == "Universitaria") {
 
-                        $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->obtenerCostoViaje());
-                        $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
+                        $this->assertEquals($colectivo->TARIFABÁSICA / 2, $retorno->obtenerCostoViaje());
+                        $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
                     } else if ($tarjetas[$i]->tipoDeTarjeta == "Jubilado") {
 
                         $this->assertEquals(0, $retorno->obtenerCostoViaje());
                         $this->assertEquals($saldoPrePago - 0 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
                     } else {
 
-                        $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->obtenerCostoViaje());
-                        $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA - 30, $retorno->obtenerSaldoRestante());
+                        $this->assertEquals($colectivo->TARIFABÁSICA, $retorno->obtenerCostoViaje());
+                        $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA - 30, $retorno->obtenerSaldoRestante());
                     }
                 } else {
 
@@ -273,16 +273,16 @@ class ColectivoTest extends TestCase
 
                 if ($tarjetas[$i]->tipoDeTarjeta == "Estudiantil" || $tarjetas[$i]->tipoDeTarjeta == "Universitaria") {
 
-                    $this->assertEquals(Colectivo::TARIFABÁSICA / 2, $retorno->obtenerCostoViaje());
-                    $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
+                    $this->assertEquals($colectivo->TARIFABÁSICA / 2, $retorno->obtenerCostoViaje());
+                    $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
                 } else if ($tarjetas[$i]->tipoDeTarjeta == "Jubilado") {
 
                     $this->assertEquals(0, $retorno->obtenerCostoViaje());
                     $this->assertEquals($saldoPrePago - 0 - $tarjetas[$i]->deuda, $retorno->obtenerSaldoRestante());
                 } else {
 
-                    $this->assertEquals(Colectivo::TARIFABÁSICA, $retorno->obtenerCostoViaje());
-                    $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA - 30, $retorno->obtenerSaldoRestante());
+                    $this->assertEquals($colectivo->TARIFABÁSICA, $retorno->obtenerCostoViaje());
+                    $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA - 30, $retorno->obtenerSaldoRestante());
                 }
             }
         }
@@ -315,7 +315,7 @@ class ColectivoTest extends TestCase
 
                 $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
             } else {
                 $this->assertEquals($tarjetas[$j]->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -334,7 +334,7 @@ class ColectivoTest extends TestCase
 
                 $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
             } else {
                 $this->assertEquals($tarjetas[$j]->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -352,7 +352,7 @@ class ColectivoTest extends TestCase
 
                 $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjetas[$j]->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA, $tarjetas[$j]->saldo);
             } else {
                 $this->assertEquals($tarjetas[$j]->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -372,7 +372,7 @@ class ColectivoTest extends TestCase
 
                 $this->assertEquals($tarjetas[$j]->viajes, 1);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA / 2, $tarjetas[$j]->saldo);
             } else {
                 $this->assertEquals($tarjetas[$j]->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -446,7 +446,7 @@ class ColectivoTest extends TestCase
 
                 $this->assertEquals($tarjetas[$j]->viajes, $viajesaux + 1);
 
-                $this->assertEquals($saldoPrePago - Colectivo::TARIFABÁSICA, $tarjetas[$j]->saldo);
+                $this->assertEquals($saldoPrePago - $colectivo->TARIFABÁSICA, $tarjetas[$j]->saldo);
             } else {
                 $this->assertEquals($tarjetas[$j]->saldo, $saldoPrePago);
                 $this->assertEquals($retorno, false);
@@ -513,7 +513,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA);
         $this->assertEquals($tarjeta->exceso, 0);
 
         $tarjeta->saldo = 6600;
@@ -524,7 +524,7 @@ class ColectivoTest extends TestCase
         $colectivo->pagarCon($tarjeta);
 
         $this->assertEquals($tarjeta->saldo, $saldoprepago);
-        $this->assertEquals($tarjeta->exceso, $excesoprepago - Colectivo::TARIFABÁSICA);
+        $this->assertEquals($tarjeta->exceso, $excesoprepago - $colectivo->TARIFABÁSICA);
 
         $tarjeta->saldo = 6600;
         $tarjeta->exceso = 100;
@@ -533,7 +533,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - (Colectivo::TARIFABÁSICA - $excesoprepago));
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - ($colectivo->TARIFABÁSICA - $excesoprepago));
         $this->assertEquals($tarjeta->exceso, 0);
     }
 
@@ -552,7 +552,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA);
         $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
         $this->assertEquals($tarjeta->dias, $diasprepago + 1);
 
@@ -566,7 +566,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA * 0.80);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA * 0.80);
         $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
         $this->assertEquals($tarjeta->dias, $diasprepago + 1);
 
@@ -580,7 +580,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA);
         $this->assertEquals($tarjeta->viajespormes, 2);
         $this->assertEquals($tarjeta->dias, $diasprepago);
 
@@ -594,7 +594,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA);
         $this->assertEquals($tarjeta->viajespormes, 2);
         $this->assertEquals($tarjeta->dias, $diasprepago + 1);
 
@@ -608,7 +608,7 @@ class ColectivoTest extends TestCase
 
         $colectivo->pagarCon($tarjeta);
 
-        $this->assertEquals($tarjeta->saldo, $saldoprepago - Colectivo::TARIFABÁSICA * 0.75);
+        $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA * 0.75);
         $this->assertEquals($tarjeta->viajespormes, $viajesprepago + 1);
         $this->assertEquals($tarjeta->dias, $diasprepago);
     }
@@ -687,5 +687,5 @@ class ColectivoTest extends TestCase
       $this->assertInstanceOf(Boleto::class, $retorno);
 
     }
-    
+
 }
