@@ -77,7 +77,7 @@ class Colectivo
 
                 $tarjeta->viajespormes = $tarjeta->viajespormes;
             } else {
-
+                $tarjeta->dias = 1;
                 $tarjeta->viajespormes = 1;
             }
 
