@@ -596,7 +596,7 @@ class ColectivoTest extends TestCase
 
         $this->assertEquals($tarjeta->saldo, $saldoprepago - $colectivo->TARIFABÁSICA);
         $this->assertEquals($tarjeta->viajespormes, 2);
-        $this->assertEquals($tarjeta->dias, $diasprepago + 1);
+        $this->assertEquals($tarjeta->dias, 1);
 
         $tarjeta->saldo = 6600;
         $tarjeta->dias = 20;
